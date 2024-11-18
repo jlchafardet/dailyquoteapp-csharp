@@ -66,27 +66,24 @@ class Program
     {
         // Print out a list of things the user can do
         Console.WriteLine("=== Daily Quote App ===");
-        Console.WriteLine("1. Get a Random Quote");     // Option to see a random quote
-        Console.WriteLine("2. Add a New Quote");        // Option to add a new quote
-        Console.WriteLine("3. List All Quotes");        // Option to see all quotes
-        Console.WriteLine("4. Exit");                   // Option to leave the program
-        Console.Write("Choose an option: ");            // Prompt user to make a choice
+        Console.WriteLine("1. Get a Random Quote"); // Option to see a random quote
+        Console.WriteLine("2. Add a New Quote"); // Option to add a new quote
+        Console.WriteLine("3. List All Quotes"); // Option to see all quotes
+        Console.WriteLine("4. Exit"); // Option to leave the program
+        Console.Write("Choose an option: "); // Prompt user to make a choice
     }
 
     // This method shows a random quote to the user
     static void DisplayRandomQuote()
     {
-        // Ask our quote manager to give us a random quote
         Quote quote = quoteManager.GetRandomQuote();
 
-        // If we found a quote, show it
         if (quote != null)
         {
             Console.WriteLine("\n--- Random Quote ---");
-            Console.WriteLine($"\"{quote.Text}\"");     // Print the quote text
-            Console.WriteLine($"- {quote.Author}");     // Print the quote's author
+            Console.WriteLine($"\"{quote.Text ?? ""}\"");
+            Console.WriteLine($"- {quote.Author ?? "Unknown"}");
         }
-        // If no quotes are available, tell the user
         else
         {
             Console.WriteLine("No quotes available.");
@@ -96,22 +93,23 @@ class Program
     // This method helps the user add a new quote
     static void AddNewQuote()
     {
-        // Ask the user to type in the quote text
         Console.Write("Enter quote text: ");
-        string text = Console.ReadLine();
+        string text = Console.ReadLine() ?? "";
 
-        // Ask the user to type in the quote's author
         Console.Write("Enter quote author: ");
-        string author = Console.ReadLine();
+        string author = Console.ReadLine() ?? "";
 
-        // Create a new quote with the information the user gave
-        Quote newQuote = new Quote(text, author);
-
-        // Ask our quote manager to save the new quote
-        quoteManager.AddQuote(newQuote);
-
-        // Tell the user the quote was saved successfully
-        Console.WriteLine("Quote added successfully!");
+        // Only create quote if text is not empty
+        if (!string.IsNullOrWhiteSpace(text))
+        {
+            Quote newQuote = new Quote(text, author);
+            quoteManager.AddQuote(newQuote);
+            Console.WriteLine("Quote added successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Quote text cannot be empty.");
+        }
     }
 
     // This method shows all the quotes we have

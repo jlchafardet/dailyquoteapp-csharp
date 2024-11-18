@@ -7,6 +7,15 @@ using System.Collections.Generic;
 public class QuoteManager
 {
     private List<Quote> quotes;
+    private Random random = new Random();
+
+    public Quote GetRandomQuote()
+    {
+        if (quotes.Count == 0)
+            return null;
+        
+        return quotes[random.Next(quotes.Count)];
+    }
 
     /// <summary>
     /// Initializes a new instance of the QuoteManager class.
