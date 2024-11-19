@@ -35,7 +35,7 @@ Daily Quote C# is a delightful console application designed to brighten your day
 - [ ] Create persistent user favorites
 
 ### License 📄
-This project is licensed under the MIT License. 
+This project is licensed under the GNU 3 License. 
 [View full license details](LICENSE)
 
 ### Contribution 🤝
