@@ -39,6 +39,7 @@ Daily Quote C# is a delightful console application designed to brighten your day
 - [ ] Add quote categories
 - [ ] Implement quote search functionality
 - [ ] Create persistent user favorites
+- [ ] Load quotes from a remote API
 
 ### License 📄
 
