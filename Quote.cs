@@ -15,6 +15,9 @@ public class Quote
     /// </summary>
     public string Author { get; set; }
 
+    // date property to track when this quote was last selected
+    public DateTime? LastSelectedDate { get; set; }
+
     /// <summary>
     /// Creates a new Quote instance.
     /// </summary>
@@ -24,5 +27,27 @@ public class Quote
     {
         Text = text;
         Author = author;
+        LastSelectedDate = null;
+    }
+
+    public Quote GetDailyQuote()
+    {
+        // Find a quote that hasn't been used today
+        Quote todayQuote = quotes.FirstOrDefault(q => 
+            q.LastSelectedDate == null || 
+            q.LastSelectedDate.Value.Date != DateTime.Today);
+
+        if (todayQuote != null)
+        {
+            // Update the last selected date
+            todayQuote.LastSelectedDate = DateTime.Today;
+            SaveQuotes(); // Persist the change
+            return todayQuote;
+        }
+
+        // If all quotes have been used today, reset and start over
+        quotes.ForEach(q => q.LastSelectedDate = null);
+        SaveQuotes();
+        return GetDailyQuote(); // Recursive call to get a fresh quote
     }
 }

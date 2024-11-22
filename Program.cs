@@ -27,7 +27,7 @@ class Program
             {
                 // If user chooses 1, show a random quote
                 case "1":
-                    DisplayRandomQuote();
+                    GetDailyQuote();
                     break;
 
                 // If user chooses 2, let them add a new quote
